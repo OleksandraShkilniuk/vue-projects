@@ -28,3 +28,7 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+
+.vite/deps_temp_4516e2bb
+.vscode
