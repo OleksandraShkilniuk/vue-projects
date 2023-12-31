@@ -12,7 +12,7 @@
                 class="list-group-item d-flex justify-content-between align-items-center"
             >
               <div>
-                <input class="form-check-input" type="checkbox" id="termsCheck" @click="filledTodoItem.completed = !filledTodoItem.completed" :checked="filledTodoItem.completed">
+                <input class="form-check-input" type="checkbox" id="termsCheck" @click="todoItem.completed = !todoItem.completed" :checked="todoItem.completed">
                 {{todoItem.title}}
               </div>
               <div><small>{{todoItem.description}}</small></div>
@@ -35,8 +35,13 @@
         <div class="modal-content">
           <form id="form" action="#" method="post">
             <div class="modal-body">
-              <input id="form-uuid" type="hidden">
+              <label for="termsCheck">Is this task completed?</label>
 
+<!--              TODO: find the way to distinguish one checkbox from another based on prev homeworks-->
+
+              <input class="m-3 form-check-input" type="checkbox" id="termsCheck" @click="toggleCompleted(filledTodoItem)" :checked="filledTodoItem.completed">
+              <input id="form-uuid" type="hidden">
+              <br>
               <label for="form-title" class="form-label">Title</label>
               <input type="text" id="form-title" name="title" class="form-control" v-model="filledTodoItem.title">
               <div id="form-title-invalid-feedback" class="invalid-feedback"></div>
@@ -142,6 +147,11 @@ export default {
 
       this.showDeleteModal = false;
       console.log(this.showDeleteModal)
+    },
+
+    toggleCompleted(todoItem) {
+      // Toggle the completed property for the specific todo item
+      todoItem.completed = !todoItem.completed;
     },
 
     generateUid() {
