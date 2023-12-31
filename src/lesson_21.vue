@@ -7,11 +7,16 @@
           <button type="button" class="btn btn-success mb-3" @click="create">Add</button>
 <!--todo list items-->
           <ul id="todo-list" class="list-group">
+
+            <!--                v-for to create li in html-->
+
             <li
                 v-for="todoItem in todoList"
                 class="list-group-item d-flex justify-content-between align-items-center"
             >
               <div>
+<!--                click on todo-item to make it checked through its connection with todoItem var declared in v-for-->
+
                 <input class="form-check-input" type="checkbox" id="termsCheck" @click="todoItem.completed = !todoItem.completed" :checked="todoItem.completed">
                 {{todoItem.title}}
               </div>
@@ -39,7 +44,7 @@
 
 <!--              TODO: find the way to distinguish one checkbox from another based on prev homeworks-->
 
-              <input class="m-3 form-check-input" type="checkbox" id="termsCheck" @click="toggleCompleted(filledTodoItem)" :checked="filledTodoItem.completed">
+              <input class="m-3 form-check-input" type="checkbox" id="termsCheck" v-model="filledTodoItem.completed" :checked="filledTodoItem.completed">
               <input id="form-uuid" type="hidden">
               <br>
               <label for="form-title" class="form-label">Title</label>
@@ -147,11 +152,6 @@ export default {
 
       this.showDeleteModal = false;
       console.log(this.showDeleteModal)
-    },
-
-    toggleCompleted(todoItem) {
-      // Toggle the completed property for the specific todo item
-      todoItem.completed = !todoItem.completed;
     },
 
     generateUid() {
