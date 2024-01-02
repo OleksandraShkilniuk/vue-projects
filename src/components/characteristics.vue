@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       count: 0,
+      maxTotalCount: 0,
     }
   },
   name: "characteristics",

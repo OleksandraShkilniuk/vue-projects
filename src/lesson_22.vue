@@ -68,17 +68,12 @@ export default {
           count: 0,
         },
       ],
-      totalCount: 0,
-      maxTotalCount: 20,
     }
   },
   components: {characteristics},
   methods: {
     changeCounter(updatedCharacter) {
 
-      this.totalCount--
-      console.log(this.totalCount)
-      if (0 < this.totalCount && this.totalCount <= 20) {
         let index = this.characteristics.findIndex((item) => item.id === updatedCharacter.id)
 
         if(index !== -1) {
@@ -87,7 +82,6 @@ export default {
         }
       }
     }
-  }
 }
 </script>
 
