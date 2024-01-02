@@ -100,8 +100,9 @@ export default {
         completed: false,
       },
 
+      todoList: JSON.parse(localStorage.getItem('todoList')) || [],
 
-      todoList: [],
+      // todoList: [],
 
 
       deletedItem: {},
@@ -116,8 +117,12 @@ export default {
 
       if(index === -1) {
         this.todoList.push(this.filledTodoItem);
+        localStorage.setItem('todoList', JSON.stringify(this.todoList));
+
       } else {
         this.todoList[index] = {...this.filledTodoItem};
+        localStorage.setItem('todoList', JSON.stringify(this.todoList));
+
       }
       this.showFormModal = false;
     },
@@ -136,6 +141,8 @@ export default {
       let editableItem = this.todoList.find((item) => item.uid === uid)
       this.filledTodoItem = {...editableItem}
       this.showFormModal = true;
+      localStorage.setItem('todoList', JSON.stringify(this.todoList));
+
     },
 
     deleteItem(uid) {
