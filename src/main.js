@@ -1,6 +1,6 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import lesson_22 from './lesson_22.vue'
+import axios from './axios.vue'
 
-createApp(lesson_22).mount('#app')
+createApp(axios).mount('#app')
