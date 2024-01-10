@@ -1,6 +1,11 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import axios from './axios.vue'
+import {createPinia} from "pinia";
+import piniaMain from './pinia/piniaMain.vue'
 
-createApp(axios).mount('#app')
+const pinia = createPinia()
+const app = createApp(piniaMain)
+
+app.use(pinia)
+createApp(piniaMain).mount('#app')
