@@ -2,9 +2,7 @@
 
 <template>
 
-  <button class="btn-primary" @click="check()">click me</button>
-
-  <div :class="{ 'modal': !isVisible, 'modal d-block': isVisible }" tabindex="-1" aria-labelledby="modal-title">
+  <div class="modal" :class="{ 'd-block': visible }" tabindex="-1" aria-labelledby="modal-title">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -13,17 +11,32 @@
         </div>
         <div class="modal-body row flex-column">
           <label for="fullName">Full Name:</label>
-          <input id="fullName" class="m-2 form-control" type="text">
+          <input
+              id="fullName"
+              class="m-2 form-control"
+              type="text"
+              v-model="accountStore.account.fullName"
+
+          >
 
 
           <label for="nickname">Nickname:</label>
-          <input id="nickname" class="m-2 form-control" type="text">
+          <input
+              id="nickname"
+              class="m-2 form-control"
+              type="text"
+              v-model="accountStore.account.nickname"
+          >
 
           <label for="about">About:</label>
-          <input id="about" class="m-2 form-control" type="text">
+          <input
+              id="about"
+              class="m-2 form-control"
+              type="text"
+            v-model="accountStore.account.about">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
@@ -35,23 +48,41 @@
 <script>
 
 import {mapStores} from "pinia";
-import {userAccountStore} from "@/pinia/stores/account.vue";
+import {useAccountStore} from "@/pinia/compnents_pinia/stores/account.js";
 
 export default {
   name: "AccountForm",
   data() {
     return{
-      isVisible: userAccountStore().isVisible,
+
     }
   },
 
+  props: {
+    modelValue: {
+      readable: true,
+      type: Boolean,
+    }
+
+  },
+
   computed: {
-    ...mapStores(userAccountStore),
+    ...mapStores(useAccountStore),
+    visible: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      }
+
+    }
   },
   methods: {
-    check() {
-      alert(this.isVisible)
-    }
+    closeModal() {
+      // Emit an event to notify the parent component to close the modal
+      this.visible = false;
+    },
   }
 }
 </script>
